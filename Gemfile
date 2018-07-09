@@ -25,6 +25,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # bundle mysql2 adapter, version 0.3.18 should be updated. <---------------------------------------------------------------------
 gem 'mysql2', '~> 0.3.18'
 
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+gem 'active_admin_editor', github: 'ejholmes/active_admin_editor'
+gem 'font-awesome-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'autoprefixer-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

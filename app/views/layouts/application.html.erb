@@ -29,6 +29,7 @@
       </div>
     </nav>
 
+    <%= render 'blocks/jumbotron' %>
     
 
     <div class="container">
@@ -40,6 +41,9 @@
         <% if flash[:alert] %>
           <div class="alert alert-danger"><% flash[:alert] %></div>
         <% end %>
+        
+        <%= render 'blocks/block' %>
+        
         <%= yield %>
       <hr>
 

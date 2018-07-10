@@ -1,7 +1,27 @@
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-      </div>
-    </div>
+<% if @jumbotron.exists? %>
+  <% @jumbotron.each do |jumbotron| %>
+    <% if params[:controller] == 'home' %>
+      <% if jumbotron.display == 'home' || jumbotron.display == 'all' %>
+            <div class="jumbotron">
+              <div class="container">
+              <% if jumbotron.show_title == true %>
+                <h1><%= jumbotron.title %></h1>
+              <% end %>
+                <%= raw jumbotron.body %>
+              </div>
+            </div>
+      <% end %>
+    <% else %>
+      <% if jumbotron.display == 'nohome' || jumbotron.display == 'all' %>
+            <div class="jumbotron">
+              <div class="container">
+              <% if jumbotron.show_title == true %>
+                <h1><%= jumbotron.title %></h1>
+              <% end %>
+                <%= raw jumbotron.body %>
+              </div>
+            </div>
+      <% end %>
+    <% end %>
+  <% end %>  
+<% end %>

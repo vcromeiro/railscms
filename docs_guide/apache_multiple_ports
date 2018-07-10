@@ -1,0 +1,53 @@
+https://docs.c9.io/docs/multiple-ports
+
+Multiple Ports
+Running applications on different ports with Cloud9
+
+Cloud9 hosted workspaces now allow workspaces to listen on multiple ports. The following ports are supported (along with the urls they can be accessed from):
+
+8080 -> https://<workspacename>-<username>.c9users.io
+8081 -> http://<workspacename>-<username>.c9users.io:8081
+8082 -> http://<workspacename>-<username>.c9users.io:8082
+This allows things like running multiple applications on a workspace and LiveReload.
+
+ How to get Livereload to work with your app
+If you're using Grunt with LiveReload, please checkout an example here
+
+HOW TO USE MULTIPLE PORTS WITH APACHE
+Apache comes pre-installed with each Cloud9 workspace. This way, it is super easy to get started and serving your HTML pages. However, if you'd like to run multiple applications on different ports, here's what you can do: (This is for port 8081 but it's exactly the same for port 8082)
+
+Create a new configuration in /etc/apache2/sites-available
+
+sudo -i
+cd /etc/apache2/sites-available
+cp 001-cloud9.conf 002-myconfig.conf
+Link configuration in /etc/apache2/sites-enabled
+
+cd /etc/apache2/sites-enabled
+ln -s /etc/apache2/sites-available/002-myconfig.conf
+Edit 002-myconfig.conf and change the port number from 8080 to 8081. Set DocumentRoot to whatever path you'd like apache to serve when your project is accessed on port 8081
+
+Edit /etc/apache2/ports.conf and add Listen 8081 just below Listen 8080
+
+Restart apache with sudo service apache2 restart or by restarting the runner.
+
+Access your new instance of apache at http://<workspacename>-<username>.c9.io:8081
+
+HOW TO RUN PHPMYADMIN AT THE SAME TIME AS YOUR NODEJS, RUBY ON RAILS OR OTHER APPLICATION
+PHPMyAdmin uses Apache to run. So previously you couldn't have both it and NodeJS/Rails/Python running at the same time as they both wanted port 8080.
+
+First Set Up PHPMyAdmin. Then do one of the following:
+
+Run PHPMyAdmin on port 8080 and Application on 8081
+This is the simplest way. All you need to do is specify 8081 as your app port instead of using the environment variable $PORT. Then you can access your app at https://projectname-username.c9users.io:8081/ ad PHPMyAdmin at http://<workspacename>-<username>.c9.io/phpmyadmin
+
+Run PHPMyAdmin on port 8081
+The other alternative is to run Apache on port 8081. You can do this with the following steps:
+
+Edit /etc/apache2/ports.conf and change 8080 to 8081
+Edit /etc/apache2/sites-available/001-cloud9.conf and change 8080 to 8081.
+Restart apache with sudo service apache2 restart or by restarting your runner.
+You'll then be able to access PHPMyAdmin at https://<workspacename>-<username>.c9users.io:8081/phpmyadmin
+
+Extra Information
+If you make apache listen on multiple ports PHPMyAdmin will actually be available at /phpmyadmin for every port.

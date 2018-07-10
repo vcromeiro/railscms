@@ -1,0 +1,5 @@
+create database railscms_development;
+create database railscms_test;
+grant all on railscms_development.* to 'railscms'@'localhost';
+grant all on railscms_test.* to 'railscms'@'localhost';
+FLUSH Privileges;
